@@ -557,7 +557,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 var _prodInvariant = __webpack_require__(3);
 
-var DOMProperty = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
 var ReactDOMComponentFlags = __webpack_require__(85);
 
 var invariant = __webpack_require__(1);
@@ -2124,6 +2124,57 @@ function getPooledWarningPropertyDefinition(propName, getVal) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.analysesGet = exports.serverGet = exports.serverPost = exports.customGet = undefined;
+
+var _axios = __webpack_require__(112);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var routes = {
+    login: '/login',
+    signup: '/signup',
+    public: '/publicanalyses',
+    customform: '/analysis',
+    twitter: '/twitter',
+    twitterProfile: '/analysis',
+    analyze: '/analyze/',
+    user: '/useranalyses',
+    session: '/hasSession'
+};
+
+var serverPost = function serverPost(routeName, message) {
+    return _axios2.default.post(routes[routeName], message);
+};
+
+var analysesGet = function analysesGet(id) {
+    return _axios2.default.get(routes['analyze'] + id);
+};
+
+var customGet = function customGet(routeName) {
+    return _axios2.default.get(routeName);
+};
+
+var serverGet = function serverGet(routeName) {
+    return _axios2.default.get(routes[routeName]);
+};
+
+exports.customGet = customGet;
+exports.serverPost = serverPost;
+exports.serverGet = serverGet;
+exports.analysesGet = analysesGet;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -2334,56 +2385,6 @@ var DOMProperty = {
 
 module.exports = DOMProperty;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.analysesGet = exports.serverGet = exports.serverPost = exports.customGet = undefined;
-
-var _axios = __webpack_require__(112);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var routes = {
-    login: '/login',
-    signup: '/signup',
-    public: '/publicanalyses',
-    customform: '/analysis',
-    twitter: '/twitter',
-    twitterProfile: '/analysis',
-    analyze: '/analyze/',
-    useranalyses: '/useranalyses'
-};
-
-var serverPost = function serverPost(routeName, message) {
-    return _axios2.default.post(routes[routeName], message);
-};
-
-var analysesGet = function analysesGet(id) {
-    return _axios2.default.get(routes['analyze'] + id);
-};
-
-var customGet = function customGet(routeName) {
-    return _axios2.default.get(routeName);
-};
-
-var serverGet = function serverGet(routeName) {
-    return _axios2.default.get(routes[routeName]);
-};
-
-exports.customGet = customGet;
-exports.serverPost = serverPost;
-exports.serverGet = serverGet;
-exports.analysesGet = analysesGet;
 
 /***/ }),
 /* 19 */
@@ -24789,7 +24790,7 @@ var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _serverCalls = __webpack_require__(18);
+var _serverCalls = __webpack_require__(17);
 
 var s = _interopRequireWildcard(_serverCalls);
 
@@ -24895,7 +24896,7 @@ var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _serverCalls = __webpack_require__(18);
+var _serverCalls = __webpack_require__(17);
 
 var s = _interopRequireWildcard(_serverCalls);
 
@@ -24933,7 +24934,8 @@ var UserAnalyses = function (_React$Component) {
     value: function componentWillMount() {
       var _this2 = this;
 
-      s.serverGet('useranalyses').then(function (e) {
+      s.serverGet('user').then(function (e) {
+        console.log(e);
         _this2.setState({
           dataLoaded: true,
           data: e.data
@@ -24951,7 +24953,7 @@ var UserAnalyses = function (_React$Component) {
         !this.state.dataLoaded ? _react2.default.createElement(
           'div',
           null,
-          'Please sign up or log in to see saved analyses'
+          'Please sign up or log in to see saved analyses.'
         ) : _react2.default.createElement(
           'div',
           null,
@@ -25842,7 +25844,7 @@ module.exports = PooledClass.addPoolingTo(CallbackQueue);
 
 
 
-var DOMProperty = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactInstrumentation = __webpack_require__(10);
 
@@ -26582,7 +26584,7 @@ module.exports = ReactInputSelection;
 var _prodInvariant = __webpack_require__(3);
 
 var DOMLazyTree = __webpack_require__(24);
-var DOMProperty = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
 var React = __webpack_require__(26);
 var ReactBrowserEventEmitter = __webpack_require__(36);
 var ReactCurrentOwner = __webpack_require__(15);
@@ -28359,7 +28361,7 @@ var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _serverCalls = __webpack_require__(18);
+var _serverCalls = __webpack_require__(17);
 
 var s = _interopRequireWildcard(_serverCalls);
 
@@ -28590,7 +28592,7 @@ var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _serverCalls = __webpack_require__(18);
+var _serverCalls = __webpack_require__(17);
 
 var s = _interopRequireWildcard(_serverCalls);
 
@@ -28638,7 +28640,10 @@ var LoginForm = function (_React$Component) {
 
       event.preventDefault();
       s.serverPost('login', this.state).then(function (e) {
-        _this2.props.update(_this2.state.username);
+        console.log('E in sendForm in loginForm: ', e);
+        if (e.data) {
+          _this2.props.update(e.data);
+        } // TODO: tell the user their login failed (when e.data === false)
       }).catch(function (e) {
         _this2.setState({ status: e.data });
         _this2.props.update(_this2.state.username);
@@ -28665,13 +28670,13 @@ var LoginForm = function (_React$Component) {
             'label',
             null,
             'Username:',
-            _react2.default.createElement('input', { type: 'text', name: 'username', onChange: this.updateFormValue, defaultValue: '' })
+            _react2.default.createElement('input', { type: 'text', name: 'username', refs: 'username', onChange: this.updateFormValue, defaultValue: '' })
           ),
           _react2.default.createElement(
             'label',
             null,
             'Password:',
-            _react2.default.createElement('input', { type: 'password', name: 'password', onChange: this.updateFormValue, defaultValue: ''
+            _react2.default.createElement('input', { type: 'password', name: 'password', refs: 'password', onChange: this.updateFormValue, defaultValue: ''
             })
           ),
           _react2.default.createElement('input', { type: 'submit', defaultValue: 'submit' })
@@ -28706,7 +28711,7 @@ var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _serverCalls = __webpack_require__(18);
+var _serverCalls = __webpack_require__(17);
 
 var s = _interopRequireWildcard(_serverCalls);
 
@@ -39996,7 +40001,7 @@ var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _serverCalls = __webpack_require__(18);
+var _serverCalls = __webpack_require__(17);
 
 var s = _interopRequireWildcard(_serverCalls);
 
@@ -40107,7 +40112,7 @@ var _reactDom = __webpack_require__(12);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _serverCalls = __webpack_require__(18);
+var _serverCalls = __webpack_require__(17);
 
 var s = _interopRequireWildcard(_serverCalls);
 
@@ -43451,7 +43456,7 @@ module.exports = FallbackCompositionState;
 
 
 
-var DOMProperty = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
 
 var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
 var HAS_BOOLEAN_VALUE = DOMProperty.injection.HAS_BOOLEAN_VALUE;
@@ -44897,7 +44902,7 @@ var AutoFocusUtils = __webpack_require__(155);
 var CSSPropertyOperations = __webpack_require__(157);
 var DOMLazyTree = __webpack_require__(24);
 var DOMNamespaces = __webpack_require__(47);
-var DOMProperty = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
 var DOMPropertyOperations = __webpack_require__(84);
 var EventPluginHub = __webpack_require__(29);
 var EventPluginRegistry = __webpack_require__(35);
@@ -46346,7 +46351,7 @@ module.exports = ReactDOMInput;
 
 
 
-var DOMProperty = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
 var ReactComponentTreeHook = __webpack_require__(8);
 
 var warning = __webpack_require__(2);
@@ -47318,7 +47323,7 @@ module.exports = {
 
 
 
-var DOMProperty = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
 var EventPluginRegistry = __webpack_require__(35);
 var ReactComponentTreeHook = __webpack_require__(8);
 
@@ -48229,7 +48234,7 @@ module.exports = ReactHostOperationHistoryHook;
 
 
 
-var DOMProperty = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
 var EventPluginHub = __webpack_require__(29);
 var EventPluginUtils = __webpack_require__(48);
 var ReactComponentEnvironment = __webpack_require__(51);
@@ -54986,7 +54991,13 @@ var _UserAnalyses = __webpack_require__(71);
 
 var _UserAnalyses2 = _interopRequireDefault(_UserAnalyses);
 
+var _serverCalls = __webpack_require__(17);
+
+var s = _interopRequireWildcard(_serverCalls);
+
 var _reactRouterDom = __webpack_require__(33);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -55012,24 +55023,40 @@ var App = function (_React$Component) {
     return _this;
   }
 
-  //the Create style is for illustrative purposes
-  //to pass in props:
-  // <Route path="/Create" render={() => <Create {...this.state} /> } />
-
-
   _createClass(App, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _this2 = this;
+
+      console.log('HELLO WORLD IN componentWillMount IN INDEX.JSX');
+      s.serverGet('session').then(function (e) {
+        console.log(e.data);
+        if (e.data.username) {
+          _this2.setState({
+            user: e.data.username,
+            loggedIn: true
+          });
+        }
+      });
+    }
+
+    //the Create style is for illustrative purposes
+    //to pass in props:
+    // <Route path="/Create" render={() => <Create {...this.state} /> } />
+
+  }, {
     key: 'updateLoggedIn',
     value: function updateLoggedIn(username) {
-      username = username || 'Guest';
+      username = username;
       this.setState({
         user: username,
-        loggedIn: !this.state.loggedIn
+        loggedIn: true
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _react2.default.createElement(
         _reactRouterDom.BrowserRouter,
@@ -55117,7 +55144,7 @@ var App = function (_React$Component) {
                     null,
                     _react2.default.createElement(
                       _reactRouterDom.Link,
-                      { to: '/UserAnalyses' },
+                      { to: '/User' },
                       'My Stored Analyses'
                     )
                   )
@@ -55144,16 +55171,16 @@ var App = function (_React$Component) {
             this.state.user,
             _react2.default.createElement(_reactRouterDom.Route, { path: '/Home' }),
             !this.state.loggedIn && _react2.default.createElement(_reactRouterDom.Route, { path: '/LoginForm', component: function component() {
-                return _react2.default.createElement(_LoginForm2.default, { update: _this2.updateLoggedIn });
+                return _react2.default.createElement(_LoginForm2.default, { update: _this3.updateLoggedIn });
               } }),
             !this.state.loggedIn && _react2.default.createElement(_reactRouterDom.Route, { path: '/SignUpForm', component: function component() {
-                return _react2.default.createElement(_SignupForm2.default, { update: _this2.updateLoggedIn });
+                return _react2.default.createElement(_SignupForm2.default, { update: _this3.updateLoggedIn });
               } }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/Create', render: function render() {
-                return _react2.default.createElement(_Create2.default, _extends({ ownTwitter: true }, _this2.state));
+                return _react2.default.createElement(_Create2.default, _extends({ ownTwitter: true }, _this3.state));
               } }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/Public', component: _Public2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/UserAnalyses', component: _UserAnalyses2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/User', component: _UserAnalyses2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/analyses/:id', component: _Analyses2.default })
           )
         )
